@@ -23,6 +23,11 @@ class BaseDataBaseManager {
     });
   }
 
+  /**
+   * @eonduck2 24.06.24
+   * * 테이블의 기본 제약 조건들을 리턴해주는 기능
+   * @returns { object } 기본 제약 조건 속성들이 정의된 객체
+   */
   static getDefaultColumnProperties() {
     return {
       primaryKey: false,
