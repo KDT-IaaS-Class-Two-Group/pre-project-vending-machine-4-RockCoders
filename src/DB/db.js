@@ -24,6 +24,5 @@ test.db.serialize(() => {
     age: "INTEGER",
     city: "TEXT",
   };
-
   test.createTable(`test_tbl5`, columns);
 });
