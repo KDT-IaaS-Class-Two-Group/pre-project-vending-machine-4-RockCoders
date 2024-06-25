@@ -47,13 +47,14 @@ class BaseDataBaseManager {
     };
   }
 
-  // /**
-  //  * @eonduck2 24.06.24
-  //  * * 테이블의 기본 제약 조건들을 리턴해주는 기능
-  //  * @returns { object } 기본 제약 조건 속성들이 정의된 객체
-  //  */
+  /**
+   * @eonduck2 24.06.24
+   * * 테이블의 제약 조건들을 설정하기 위해, 조립시켜주는 유틸리티
+   * @param { object } 정적 메서드인 getDefaultConstants()를 참조한 형태의 객체
+   * @returns { object } 기본 제약 조건 속성들이 정의된 객체
+   */
 
-  static someMethod(properties) {
+  static generateConstraintString(properties) {
     const constraints = [];
 
     for (const [type, isSet] of Object.entries(properties.type)) {
