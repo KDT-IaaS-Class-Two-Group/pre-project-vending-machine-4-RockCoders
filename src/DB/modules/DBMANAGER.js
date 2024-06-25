@@ -51,57 +51,15 @@ class BaseDataBaseManager {
    * @param { string } tableName 생성시킬 테이블 이름
    * @param { object } columns 컬럼 이름과 타입을 정의한 객체
    */
-  createTable(tableName, columns, columnProperties) {
+  createTable(tableName, columns) {
     const columnsDefinition = Object.entries(columns)
-      .map(([name, type]) => {
-        const {
-          notNull,
-          unique,
-          primaryKey,
-          autoIncrement,
-          defaultValue,
-          check,
-          foreignKey,
-        } = columnProperties[name] || {};
-
-        let columnDef = `${name} ${type}`;
-
-        if (notNull) {
-          columnDef += " NOT NULL";
-        }
-        if (unique) {
-          columnDef += " UNIQUE";
-        }
-        if (primaryKey) {
-          columnDef += " PRIMARY KEY";
-        }
-        if (autoIncrement) {
-          columnDef += " AUTOINCREMENT";
-        }
-        if (defaultValue !== null && defaultValue !== undefined) {
-          columnDef += ` DEFAULT ${defaultValue}`;
-        }
-        if (check) {
-          columnDef += ` CHECK (${check})`;
-        }
-        if (
-          foreignKey &&
-          foreignKey.referencedTable &&
-          foreignKey.referencedColumn
-        ) {
-          columnDef += ` REFERENCES ${foreignKey.referencedTable}(${foreignKey.referencedColumn})`;
-          columnDef += ` ON DELETE ${foreignKey.onDelete}`;
-          columnDef += ` ON UPDATE ${foreignKey.onUpdate}`;
-        }
-
-        return columnDef;
-      })
+      .map(([name, type]) => `${name} ${type}`)
       .join(", ");
 
     const sql = `CREATE TABLE IF NOT EXISTS ${tableName} (${columnsDefinition})`;
     this.db.run(sql, (err) => {
       if (err) {
-        throw new Error(`테이블 생성 오류 (${tableName}): ${err.message}`);
+        throw new Error(`테이블 생성 오류 (${tableName})`);
       } else {
         console.log(`테이블 "${tableName}" 생성 완료`);
       }
