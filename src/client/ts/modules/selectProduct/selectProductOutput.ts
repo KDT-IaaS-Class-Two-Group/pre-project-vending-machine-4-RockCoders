@@ -9,7 +9,7 @@ import { ProductService } from '../amount/ProductService.js';
 
 class UIManager {
   updateProductList(selectedProducts: { id: number, name: string, price: number }[]): void {
-    const productListElement = document.getElementById('total-price') as HTMLUListElement;
+    const productListElement = document.getElementById('productList') as HTMLUListElement;
     if (productListElement) {
       productListElement.innerHTML = ''; // 기존 목록 삭제
       selectedProducts.forEach(product => {
